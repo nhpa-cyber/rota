@@ -277,19 +277,21 @@ export function getActiveFirebaseConfig(): any {
 }
 
 export async function switchActiveFirebaseConfig(newConfig: any): Promise<boolean> {
+  const banco03Preset = FIREBASE_PRESETS.find(p => p.id === 'banco-03') || FIREBASE_PRESETS[0];
+  const targetConfig = banco03Preset?.config || newConfig;
   try {
     hasClientPermissionError = false;
     isFirestoreQuotaExceeded = false;
     clientAuthError = null;
     if (typeof window !== "undefined") {
-      localStorage.setItem("active_firebase_config", JSON.stringify(newConfig));
-      localStorage.setItem("logiroute_firebase_client_config", JSON.stringify(newConfig));
+      localStorage.setItem("active_firebase_config", JSON.stringify(targetConfig));
+      localStorage.setItem("logiroute_firebase_client_config", JSON.stringify(targetConfig));
     }
     try {
       await fetch('/api/firebase/config', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newConfig),
+        body: JSON.stringify(targetConfig),
       });
     } catch (e) {}
 

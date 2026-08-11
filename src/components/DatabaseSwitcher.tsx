@@ -420,9 +420,9 @@ export const DatabaseSwitcher: React.FC<DatabaseSwitcherProps> = ({ onSwitchComp
         <div className="p-3.5 bg-amber-500/10 border border-amber-500/30 rounded-xl text-xs text-amber-900 flex items-start space-x-2.5">
           <Lock className="h-4.5 w-4.5 text-amber-600 shrink-0 mt-0.5" />
           <div>
-            <p className="font-bold text-amber-950">Modo Operacional Ativo (Sincronia de Turno Automática)</p>
-            <p className="text-amber-800 text-[11px] mt-0.5 leading-relaxed">
-              O banco de dados do seu dispositivo é mantido estritamente em sincronia com o turno atual (Diurno 07h-17h ➔ Banco 01 | Vespertino 17h-20h ➔ Banco 02 | Noturno 20h-07h ➔ Banco 03). Trocas manuais são exclusivas do perfil Gestor Administrador.
+            <p className="font-bold text-indigo-950">Banco de Dados Ativo: Banco 03</p>
+            <p className="text-indigo-900 text-[11px] mt-0.5 leading-relaxed">
+              Toda a plataforma opera exclusivamente no Banco 03 para todos os usuários e dispositivos.
             </p>
           </div>
         </div>
