@@ -265,14 +265,12 @@ export function getActiveFirebaseConfig(): any {
       const stored = localStorage.getItem("active_firebase_config") || localStorage.getItem("logiroute_firebase_client_config");
       if (stored) {
         const parsed = JSON.parse(stored);
-        if (parsed && parsed.projectId) {
-          if (parsed.projectId !== 'banco-03-6b1ea' && parsed.projectId !== 'banco-03') {
-            localStorage.setItem("active_firebase_config", JSON.stringify(banco03Preset.config));
-            return banco03Preset.config;
-          }
+        if (parsed && parsed.projectId && (parsed.projectId === 'banco-03-6b1ea' || parsed.projectId === 'banco-03')) {
           return parsed;
         }
       }
+      localStorage.setItem("active_firebase_config", JSON.stringify(banco03Preset.config));
+      localStorage.setItem("logiroute_firebase_client_config", JSON.stringify(banco03Preset.config));
     } catch (e) {}
   }
   return banco03Preset.config;

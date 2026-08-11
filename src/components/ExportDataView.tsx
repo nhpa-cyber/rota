@@ -62,7 +62,7 @@ export default function ExportDataView({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const activeConfig = getActiveFirebaseConfig();
-  const activeProjectId = activeConfig?.projectId || 'banco-01-34be4';
+  const activeProjectId = activeConfig?.projectId || 'banco-03-6b1ea';
 
   const [retroImportResult, setRetroImportResult] = useState<ProcessImportResult | null>(null);
   const [isProcessingRetro, setIsProcessingRetro] = useState(false);
