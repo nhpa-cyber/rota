@@ -73,7 +73,7 @@ export default function Header({
   const [lastSyncTimestamp, setLastSyncTimestamp] = useState<number>(getLastSuccessfulSyncTime());
   const [isManualSyncing, setIsManualSyncing] = useState(false);
   const [activeDbProjectId, setActiveDbProjectId] = useState<string>(() => {
-    return getActiveFirebaseConfig()?.projectId || 'banco-01-34be4';
+    return getActiveFirebaseConfig()?.projectId || 'banco-03-6b1ea';
   });
 
   useEffect(() => {

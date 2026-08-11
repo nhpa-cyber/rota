@@ -25,7 +25,7 @@ export const DatabaseScheduleBanner: React.FC<DatabaseScheduleBannerProps> = ({ 
   const lastWarnedLevel = useRef<string>('none');
 
   const activeConfig = getActiveFirebaseConfig();
-  const activeProjectId = activeConfig?.projectId || 'banco-01-34be4';
+  const activeProjectId = activeConfig?.projectId || 'banco-03-6b1ea';
 
   // Determine next target preset
   const currentIndex = FIREBASE_PRESETS.findIndex(p => p.config.projectId === activeProjectId);

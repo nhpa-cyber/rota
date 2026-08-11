@@ -14,37 +14,15 @@ export interface ScheduleRule {
 
 export const DEFAULT_SCHEDULE_RULES: ScheduleRule[] = [
   {
-    id: "diurno_banco_01",
-    presetId: "banco-01",
-    name: "Banco 01 (Diurno)",
-    badge: "07:00 - Banco 01",
-    badgeColor: "bg-amber-500/15 text-amber-600 border-amber-500/30",
-    triggerHour: 7,
-    triggerMinute: 0,
-    timeLabel: "07:00",
-    description: "Turno Diurno (07:00 às 17:00) ➔ Banco 01"
-  },
-  {
-    id: "vespertino_banco_02",
-    presetId: "banco-02",
-    name: "Banco 02 (Vespertino)",
-    badge: "17:00 - Banco 02",
-    badgeColor: "bg-emerald-500/15 text-emerald-600 border-emerald-500/30",
-    triggerHour: 17,
-    triggerMinute: 0,
-    timeLabel: "17:00",
-    description: "Turno Vespertino (17:00 às 20:00) ➔ Banco 02"
-  },
-  {
-    id: "noturno_banco_03",
+    id: "banco_03_fixo",
     presetId: "banco-03",
-    name: "Banco 03 (Noturno)",
-    badge: "20:00 - Banco 03",
+    name: "Banco 03 (Fixo para Todos os Usuários)",
+    badge: "Banco 03 (Ativo)",
     badgeColor: "bg-indigo-500/15 text-indigo-600 border-indigo-500/30",
-    triggerHour: 20,
+    triggerHour: 0,
     triggerMinute: 0,
-    timeLabel: "20:00",
-    description: "Turno Noturno (20:00 às 07:00) ➔ Banco 03"
+    timeLabel: "00:00",
+    description: "Banco 03 Fixo ➔ Utilizado para todos os usuários"
   }
 ];
 
@@ -174,7 +152,7 @@ export function getBrasiliaMinutes(now = new Date()): number {
 export function getCurrentScheduledPreset(now = new Date()): FirebasePreset {
   const presetId = getCurrentScheduledPresetId(now);
   const found = FIREBASE_PRESETS.find(p => p.id === presetId || p.config.projectId === presetId);
-  return found || FIREBASE_PRESETS[0];
+  return found || FIREBASE_PRESETS.find(p => p.id === 'banco-03') || FIREBASE_PRESETS[0];
 }
 
 export function getCurrentScheduledPresetId(now = new Date()): string {
@@ -186,7 +164,7 @@ export function getCurrentScheduledPresetId(now = new Date()): string {
     mins: r.triggerHour * 60 + r.triggerMinute
   })).sort((a, b) => a.mins - b.mins);
 
-  if (ruleMinutes.length === 0) return "banco-01";
+  if (ruleMinutes.length === 0) return "banco-03";
 
   let activePreset = ruleMinutes[ruleMinutes.length - 1].presetId;
   for (let i = 0; i < ruleMinutes.length; i++) {

@@ -259,38 +259,23 @@ export function isClientFirebaseActive(): boolean {
 }
 
 export function getActiveFirebaseConfig(): any {
+  const banco03Preset = FIREBASE_PRESETS.find(p => p.id === 'banco-03') || FIREBASE_PRESETS[0];
   if (typeof window !== "undefined") {
     try {
-      if (isAutoScheduleEnabled()) {
-        const scheduled = getCurrentScheduledPreset();
-        if (scheduled && scheduled.config) {
-          return scheduled.config;
-        }
-      }
-
       const stored = localStorage.getItem("active_firebase_config") || localStorage.getItem("logiroute_firebase_client_config");
       if (stored) {
         const parsed = JSON.parse(stored);
         if (parsed && parsed.projectId) {
-          if (parsed.projectId === 'abastecimento-78ae9') {
-            localStorage.removeItem("active_firebase_config");
-            localStorage.removeItem("logiroute_firebase_client_config");
-            return getCurrentScheduledPreset().config;
-          }
-          if (parsed.projectId === 'banco-02') {
-            const b2 = FIREBASE_PRESETS.find(p => p.id === 'banco-02');
-            if (b2) return b2.config;
-          }
-          if (parsed.projectId === 'banco-03') {
-            const b3 = FIREBASE_PRESETS.find(p => p.id === 'banco-03');
-            if (b3) return b3.config;
+          if (parsed.projectId !== 'banco-03-6b1ea' && parsed.projectId !== 'banco-03') {
+            localStorage.setItem("active_firebase_config", JSON.stringify(banco03Preset.config));
+            return banco03Preset.config;
           }
           return parsed;
         }
       }
     } catch (e) {}
   }
-  return getCurrentScheduledPreset().config;
+  return banco03Preset.config;
 }
 
 export async function switchActiveFirebaseConfig(newConfig: any): Promise<boolean> {

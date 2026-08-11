@@ -111,6 +111,21 @@ async function startServer() {
 
   const SERVER_FIREBASE_PRESETS = [
     {
+      id: "banco-03",
+      name: "Banco 03 (Banco Principal / Todos os Usuários)",
+      config: {
+        projectId: "banco-03-6b1ea",
+        appId: "1:645365828863:web:beb28f8f10226a02e210ca",
+        apiKey: "AIzaSyCNeRWfV7L-i3X1GBegzETsEbpGkmK_s4g",
+        authDomain: "banco-03-6b1ea.firebaseapp.com",
+        firestoreDatabaseId: "(default)",
+        storageBucket: "banco-03-6b1ea.firebasestorage.app",
+        messagingSenderId: "645365828863",
+        measurementId: "",
+        oAuthClientId: ""
+      }
+    },
+    {
       id: "banco-01",
       name: "Banco 01 (Turno Diurno 07h-17h)",
       config: {
@@ -136,21 +151,6 @@ async function startServer() {
         firestoreDatabaseId: "(default)",
         storageBucket: "banco-02-2fb6b.firebasestorage.app",
         messagingSenderId: "364866790920",
-        measurementId: "",
-        oAuthClientId: ""
-      }
-    },
-    {
-      id: "banco-03",
-      name: "Banco 03 (Turno Noturno 20h-07h)",
-      config: {
-        projectId: "banco-03-6b1ea",
-        appId: "1:645365828863:web:beb28f8f10226a02e210ca",
-        apiKey: "AIzaSyCNeRWfV7L-i3X1GBegzETsEbpGkmK_s4g",
-        authDomain: "banco-03-6b1ea.firebaseapp.com",
-        firestoreDatabaseId: "(default)",
-        storageBucket: "banco-03-6b1ea.firebasestorage.app",
-        messagingSenderId: "645365828863",
         measurementId: "",
         oAuthClientId: ""
       }
@@ -193,9 +193,7 @@ async function startServer() {
     const rules = (Array.isArray(customScheduleRules) && customScheduleRules.length > 0)
       ? customScheduleRules
       : [
-          { id: "diurno", name: "Turno Diurno (07:00-17:00)", triggerHour: 7, triggerMinute: 0, presetId: "banco-01" },
-          { id: "vespertino", name: "Turno Vespertino (17:00-20:00)", triggerHour: 17, triggerMinute: 0, presetId: "banco-02" },
-          { id: "noturno", name: "Turno Noturno (20:00-07:00)", triggerHour: 20, triggerMinute: 0, presetId: "banco-03" }
+          { id: "banco_03_fixo", name: "Banco 03 (Todos os Usuários)", triggerHour: 0, triggerMinute: 0, presetId: "banco-03" }
         ];
 
     const now = new Date();
@@ -234,6 +232,15 @@ async function startServer() {
 
     const found = SERVER_FIREBASE_PRESETS.find(p => p.id === activePresetId || p.config.projectId === activePresetId);
     return found || SERVER_FIREBASE_PRESETS[0];
+  }
+
+  // Ensure firebase-applet-config.json is configured for Banco 03 on startup
+  try {
+    const banco03Config = SERVER_FIREBASE_PRESETS[0].config;
+    fs.writeFileSync(FIREBASE_CONFIG_FILE, JSON.stringify(banco03Config, null, 2), 'utf-8');
+    console.log('[ServerDB] Configuração do Banco 03 salva com sucesso em firebase-applet-config.json');
+  } catch (e) {
+    console.error('[ServerDB] Erro ao sincronizar firebase-applet-config.json para Banco 03:', e);
   }
 
   // Server background loop to process pending DB switches and enforce shift schedule

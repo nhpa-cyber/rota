@@ -1,11 +1,11 @@
 {
-  "projectId": "banco-01-34be4",
-  "appId": "1:769319279792:web:0b1f64349b2a2b482aaf75",
-  "apiKey": "AIzaSyAxVFlljdf_QXhVgqoYbTjPJXnzLIhHCTw",
-  "authDomain": "banco-01-34be4.firebaseapp.com",
+  "projectId": "banco-03-6b1ea",
+  "appId": "1:645365828863:web:beb28f8f10226a02e210ca",
+  "apiKey": "AIzaSyCNeRWfV7L-i3X1GBegzETsEbpGkmK_s4g",
+  "authDomain": "banco-03-6b1ea.firebaseapp.com",
   "firestoreDatabaseId": "(default)",
-  "storageBucket": "banco-01-34be4.firebasestorage.app",
-  "messagingSenderId": "769319279792",
+  "storageBucket": "banco-03-6b1ea.firebasestorage.app",
+  "messagingSenderId": "645365828863",
   "measurementId": "",
   "oAuthClientId": ""
 }
